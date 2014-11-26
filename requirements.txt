@@ -1,2 +1,4 @@
 beautifulsoup4==4.3.2
-tqdm==1.0
+oauthlib==0.7.2
+requests==2.4.3
+requests-oauthlib==0.4.2

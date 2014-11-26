@@ -21,3 +21,4 @@ venv
 
 dataset/*
 !dataset/.gitkeep
+prepare/twitter_config.ini

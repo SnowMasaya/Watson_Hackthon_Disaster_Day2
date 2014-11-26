@@ -1,30 +1,21 @@
 # -*- coding: utf-8 -*-
-import urllib.request
-from ftplib import FTP
-import socket
+import requests
 import zipfile
 import os
 
 DATASET_HOME = "../dataset/"
 
 
-def download(url, filename):
-    with urllib.request.urlopen(url) as response, open(filename, "wb") as f:
-        data = response.read()
-        f.write(data)
+def download(url, filename=None):
+    content = None
+    r = requests.get(url)
+    if filename:
+        with open(filename, "wb") as f:
+            f.write(r.content)
+    else:
+        content = r.text
 
-"""
-def ftp_download(url, filename):
-    site = FTP(url)
-    path = os.path.dirname(filename)
-    fname = os.path.basename(filename)
-    site.login(user=user, passwd=passwd)
-    if path:
-        site.cwd(path)
-
-    flist = site.mlsd(fname)
-    site.quit()
-"""
+    return content
 
 
 def unzip(filename):
@@ -42,7 +33,12 @@ def unzip(filename):
 
 
 def write_file(filename, rows, separator="\t"):
-    with open(filename, "wb") as outfile:
+    path = DATASET_HOME + filename
+    with open(path, "wb") as outfile:
         for row in rows:
-            line = (separator.join(row) + "\n").encode("utf-8")
-            outfile.write(line)
+            line = ""
+            if isinstance(row, list) or isinstance(row, tuple):
+                line = separator.join(row) + "\n"
+            else:
+                line = row + "\n"
+            outfile.write(line.encode("utf-8"))

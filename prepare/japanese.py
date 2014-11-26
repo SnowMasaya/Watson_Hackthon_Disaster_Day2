@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from bs4 import BeautifulSoup
 from prepare import utils
 
 """
@@ -11,8 +12,15 @@ JAPANESE_TXT = "japanese.txt"
 
 
 def main(url=JAPANESE_URL):
-    path = utils.DATASET_HOME + JAPANESE_TXT
-    utils.download(url, path)
+    content = utils.download(url)
+    soup = BeautifulSoup(content)
+    text_nodes = soup.find_all(name=["p", "td", "li"], text=True)
+    texts = []
+    for t in [tn.text for tn in text_nodes]:
+        texts.append([t])
+
+    utils.write_file(JAPANESE_TXT, texts)
+
 
 if __name__ == "__main__":
     main()
