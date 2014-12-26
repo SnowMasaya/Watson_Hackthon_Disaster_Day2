@@ -22,3 +22,4 @@ venv
 dataset/*
 !dataset/.gitkeep
 prepare/twitter_config.ini
+inning1/*.txt
