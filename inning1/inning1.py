@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import sys
 import os
 from collections import Counter
@@ -97,8 +98,8 @@ def main(head=5, tail=5):
 
 
 if __name__ == "__main__":
-    if len(sys.argv) == 2:
-        main(sys.argv[0], sys.argv[1])
+    if len(sys.argv) == 3:
+        main(int(sys.argv[1]), int(sys.argv[2]))
     else:
         main()
 
