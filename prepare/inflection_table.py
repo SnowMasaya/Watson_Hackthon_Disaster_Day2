@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
-from prepare import utils
-from toolbox import file_tool as tool
+import utils
 
 """
 * download from
@@ -13,7 +12,7 @@ ADDRESS_TXT = "inflection.table.txt"
 
 def main(url=INFLECTION_TABLE_URL):
     path = utils.DATASET_HOME + ADDRESS_TXT
-    tool.download(url, path)
+    utils.download(url, path)
 
 if __name__ == "__main__":
     main()

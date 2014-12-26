@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from bs4 import BeautifulSoup
-from toolbox import file_tool as tool
-from prepare import utils
+import utils
 
 """
 * download from
@@ -13,7 +12,7 @@ JAPANESE_TXT = "japanese.txt"
 
 
 def main(url=JAPANESE_URL):
-    content = tool.download(url)
+    content = utils.download(url)
     soup = BeautifulSoup(content)
     text_nodes = soup.find_all(name=["p", "td", "li"], text=True)
     texts = []

@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 import xml.etree.ElementTree as ET
-from prepare import utils
-from toolbox import file_tool as tool
+import utils
 
 """
 * download from
@@ -20,7 +19,7 @@ MEDLINE_TXT = "medline.txt"
 
 def main():
     path = utils.DATASET_HOME + MEDLINE_XML
-    tool.download(MEDLINE_FTP, path)
+    utils.download(MEDLINE_FTP, path)
     write_xml(path)
 
 

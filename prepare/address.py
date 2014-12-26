@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 import csv
-from prepare import utils
-from toolbox import file_tool as tool
+import utils
 
 ZIP_CODE_URL = "http://www.post.japanpost.jp/zipcode/dl/oogaki/zip/ken_all.zip"
 ADDRESS_ZIP = "ken_all.zip"
@@ -10,9 +9,9 @@ ADDRESS_TXT = "address.txt"
 
 def main(url=ZIP_CODE_URL):
     path = utils.DATASET_HOME + ADDRESS_ZIP
-    tool.download(url, path)
-    files = tool.unzip(path)
-    if len(files) > 0:
+    utils.download(url, path)
+    files = utils.unzip(path)
+    if files and len(files) > 0:
         write_address(files[0])
     else:
         print("failed to download or unzip the file. please see at {0}.".format(utils.DATASET_HOME))
