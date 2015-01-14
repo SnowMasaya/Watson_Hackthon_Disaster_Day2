@@ -23,7 +23,7 @@ def write_address(csvfile):
     TOWN = 8
 
     address_set = set()
-    with open(csvfile, newline="") as cf:
+    with open(csvfile, newline="", encoding="shift_jis") as cf:
         rows = csv.reader(cf, delimiter=",")
         for row in rows:
             address = "".join([row[PREFECTURE], row[CITY]])
