@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import configparser
 import requests
 import json
@@ -30,6 +31,8 @@ def main(tweet_count=10000):
     meter_size = 10
 
     for tweet in twitter.streaming():
+        if "text" not in tweet:
+            continue
         tweets.append(tweet["text"])
 
         progress = round(len(tweets) * 100 / tweet_count)
@@ -39,11 +42,13 @@ def main(tweet_count=10000):
         if len(tweets) == tweet_count:
             break
 
-    with gzip.open(utils.DATASET_HOME + TWITTER_TXT, 'wb') as f:
-        # line break in tweet is \n, and between tweet is \r\n
-        # https://dev.twitter.com/streaming/overview/processing
-        f.write("\r\n".join(tweets).encode("utf-8"))
-
+    if len(tweets) > 0:
+        with gzip.open(utils.DATASET_HOME + TWITTER_TXT, 'wb') as f:
+            # line break in tweet is \n, and between tweet is \r\n
+            # https://dev.twitter.com/streaming/overview/processing
+            f.write("\r\n".join(tweets).encode("utf-8"))
+    else:
+        print("can not get any tweets.")
 
 def read_ini():
     config = configparser.ConfigParser()
